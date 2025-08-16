@@ -1,8 +1,8 @@
 {{ config(materialized='view') }}
 
 with src as (
-  -- seed: src_ads_tiktok_ads_add_data.csv  (note: file name says "add", not "all")
-  select * from {{ ref('src_ads_tiktok_ads_add_data') }}
+  -- seed: src_ads_tiktok_ads_all_data.csv  (note: file name says "add", not "all")
+  select * from {{ ref('src_ads_tiktok_ads_all_data') }}
 ),
 renamed as (
   select
