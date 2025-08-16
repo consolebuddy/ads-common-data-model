@@ -1,3 +1,6 @@
+## Recreated Dashboard Link
+https://lookerstudio.google.com/reporting/8ab11ece-605f-495d-a3b4-a80e1bdccd20
+
 ## Adding a new ad platform
 
 1. **Create/Load seed**
