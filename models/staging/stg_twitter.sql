@@ -1,20 +1,35 @@
 {{ config(materialized='view') }}
 
 with src as (
+  -- seed: src_promoted_tweets_twitter_all_data.csv
   select * from {{ ref('src_promoted_tweets_twitter_all_data') }}
-)
-, renamed as (
+),
+renamed as (
   select
-    'twitter'                           as channel,
-    cast(day as date)                   as date,             -- adjust to actual date field
-    campaign_name,
-    line_item_name                      as adgroup_name,
-    tweet_name                          as ad_name,
-    cast(billed_charge_local_micro/1e6 as float64) as spend, -- twitter cost often in micros
-    cast(clicks as int64)               as clicks,
-    cast(impressions as int64)          as impressions,
-    cast(engagements as int64)          as engagements,
-    cast(conversions as int64)          as conversions
+    cast(channel as string)                         as channel,
+    cast(date as date)                              as date,
+    cast(campaign_id as string)                     as campaign_name,
+    cast(null as string)                            as adgroup_name,   -- not available
+    cast(text as string)                            as ad_name,        -- tweet text as the creative name
+
+    cast(spend as float64)                          as spend,
+
+    -- Prefer "clicks"; fall back to "url_clicks" if clicks is missing/zero
+    case
+      when safe_cast(clicks as int64) is null or safe_cast(clicks as int64) = 0
+        then coalesce(cast(url_clicks as int64), 0)
+      else cast(clicks as int64)
+    end                                              as clicks,
+
+    cast(impressions as int64)                      as impressions,
+
+    coalesce(cast(engagements as int64),
+             cast(likes as int64),
+             cast(video_total_views as int64),
+             0)                                      as engagements,
+
+    -- No conversion metric in this seed
+    cast(0 as int64)                                 as conversions
   from src
 )
 select * from renamed

@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: ads_basic_performance
+    description: Unified paid-ads MCDM across Bing, Facebook, TikTok, and Twitter.
+    columns:
+      - name: channel
+        tests: [not_null]
+      - name: date
+        tests: [not_null]
+      - name: spend
+        tests: [not_null]
+      - name: clicks
+        tests: [not_null]
+      - name: impressions
+        tests: [not_null]
