@@ -17,4 +17,4 @@ with src as (
     cast(conversions as int64)          as conversions
   from src
 )
-select * from renamed;
+select * from renamed

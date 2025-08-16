@@ -17,4 +17,4 @@ with src as (
     cast(purchases as int64)            as conversions      -- or map from 'conversions' object; else 0
   from src
 )
-select * from renamed;
+select * from renamed
