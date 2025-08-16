@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: stg_bing
+    columns:
+      - name: channel
+        tests: [not_null]
+      - name: date
+        tests: [not_null]
+  - name: stg_facebook
+    columns:
+      - name: channel
+        tests: [not_null]
+      - name: date
+        tests: [not_null]
+  - name: stg_tiktok
+    columns:
+      - name: channel
+        tests: [not_null]
+      - name: date
+        tests: [not_null]
+  - name: stg_twitter
+    columns:
+      - name: channel
+        tests: [not_null]
+      - name: date
+        tests: [not_null]
